@@ -19,11 +19,13 @@ repos:
     hooks:
       - id: block-internal-data
         name: Block internal NST data paths
-        entry: bash -c 'if git diff --cached --name-only | grep -E "^_internal/(?!PROJECT_CONTEXT\.md$)|nst-internal|newton-internal"; then echo "Blocked: internal-data path"; exit 1; fi'
+        entry: |
+          bash -c 'if git diff --cached --name-only | grep -E "^_internal/(?!PROJECT_CONTEXT\.md$)|nst-internal|newton-internal"; then echo "Blocked: internal-data path"; exit 1; fi'
         language: system
         pass_filenames: false
       - id: ascii-only
         name: Enforce ASCII-only in tracked text files
-        entry: bash -c 'BAD=$(git diff --cached --name-only --diff-filter=ACM | grep -E "\.(md|py|sh|yml|yaml|toml)$" | xargs -I{} grep -lP "[^\x00-\x7F]" {} 2>/dev/null || true); if [ -n "$BAD" ]; then echo "Non-ASCII chars in: $BAD"; exit 1; fi'
+        entry: |
+          bash -c 'BAD=$(git diff --cached --name-only --diff-filter=ACM | grep -E "\.(md|py|sh|yml|yaml|toml)$" | xargs -I{} grep -lP "[^\x00-\x7F]" {} 2>/dev/null || true); if [ -n "$BAD" ]; then echo "Non-ASCII chars in: $BAD"; exit 1; fi'
         language: system
         pass_filenames: false
