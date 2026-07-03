@@ -46,3 +46,6 @@ htmlcov/
 
 # Bootstrap template (kept local, never pushed)
 CLAUDE.md
+
+# Local SQLite database
+slmforge.db
