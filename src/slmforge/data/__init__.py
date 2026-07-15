@@ -3,6 +3,7 @@ from slmforge.data.ingest import detect_format, ingest_path
 from slmforge.data.preview import preview_source
 from slmforge.data.builder import DatasetBuilder
 from slmforge.data.card import generate_card
+from slmforge.data.source_guard import validate
 
 __all__ = [
     "detect_format",
@@ -10,4 +11,5 @@ __all__ = [
     "preview_source",
     "DatasetBuilder",
     "generate_card",
+    "validate",
 ]
