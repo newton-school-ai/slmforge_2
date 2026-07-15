@@ -27,6 +27,10 @@ jobs:
             exit 1
           fi
 
+      - name: NST identifier scan
+        run: |
+          git grep -EI "nst-internal|newton-internal" -- ":!.github/workflows/ci.yml" ":!.pre-commit-config.yaml" ":!tests/unit/test_source_guard.py" && { echo "Forbidden NST identifier pattern found in tracked files"; exit 1; } || true
+
   test:
     name: Lint + unit tests
     runs-on: ubuntu-latest

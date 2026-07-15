@@ -23,6 +23,12 @@ repos:
           bash -c 'if git diff --cached --name-only | grep -E "^_internal/(?!PROJECT_CONTEXT\.md$)|nst-internal|newton-internal"; then echo "Blocked: internal-data path"; exit 1; fi'
         language: system
         pass_filenames: false
+      - id: block-internal-identifiers
+        name: Block internal NST identifier patterns
+        entry: |
+          bash -c 'BAD=$(git diff --cached --name-only --diff-filter=ACM | grep -E "\.(md|py|sh|yml|yaml|toml)$" | grep -vE "^\.pre-commit-config\.yaml$|^\.github/workflows/ci\.yml$|^tests/unit/test_source_guard\.py$" | xargs -I{} grep -lE "nst-internal|newton-internal" {} 2>/dev/null || true); if [ -n "$BAD" ]; then echo "Forbidden NST identifier pattern in: $BAD"; exit 1; fi'
+        language: system
+        pass_filenames: false
       - id: ascii-only
         name: Enforce ASCII-only in tracked text files
         entry: |
