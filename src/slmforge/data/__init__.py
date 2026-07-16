@@ -4,6 +4,7 @@ from slmforge.data.preview import preview_source
 from slmforge.data.builder import DatasetBuilder
 from slmforge.data.card import generate_card
 from slmforge.data.source_guard import validate
+from slmforge.data.prefetch import prefetch
 
 __all__ = [
     "detect_format",
@@ -12,4 +13,5 @@ __all__ = [
     "DatasetBuilder",
     "generate_card",
     "validate",
+    "prefetch",
 ]

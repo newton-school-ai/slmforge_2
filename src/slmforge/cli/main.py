@@ -55,5 +55,22 @@ def ui() -> None:
     typer.echo("ui: not yet implemented (M7)")
 
 
+data_app = typer.Typer(no_args_is_help=True, help="Manage datasets.")
+app.add_typer(data_app, name="data")
+
+
+@data_app.command()
+def prefetch(dataset_id: str) -> None:
+    """Prefetch a public Hugging Face dataset and cache it locally."""
+    from slmforge.data import prefetch as data_prefetch
+
+    try:
+        cache_path = data_prefetch(dataset_id)
+        typer.echo(cache_path)
+    except Exception as e:
+        typer.echo(f"Error prefetching dataset {dataset_id}: {e}", err=True)
+        raise typer.Exit(code=1)
+
+
 if __name__ == "__main__":
     app()
